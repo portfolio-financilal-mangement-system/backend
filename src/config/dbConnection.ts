@@ -1,17 +1,29 @@
-import mysql from "mysql";
+var Connection = require("tedious").Connection;
 
-const connection = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-});
+// Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
 
-connection.connect(function (err) {
+var config = {
+  server: "DESKTOP-M210O5ISQLEXPRESS", // or "localhost"
+  options: {},
+  authentication: {
+    type: "default",
+    options: {
+      userName: "root",
+      password: "mah123!",
+    },
+  },
+};
+
+var connection = new Connection(config);
+
+// Setup event handler when the connection is established.
+connection.on("connect", function (err: any) {
   if (err) {
-    console.log("error in connecting" + err);
-    return;
+    return console.log("Error: ", err);
   }
-  console.log("db connected");
+  // If no error, then good to go...
+  console.log("connected");
 });
 
-export default connection;
+// Initialize the connection.
+connection.connect();
