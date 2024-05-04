@@ -101,6 +101,17 @@ class UserController {
     }
   };
 
+  uploadAvatar = async (req: AuthRequest, res: Response) => {
+    try {
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.post("/", this.createUser);
     this.router.post("/login", this.loginUser);
