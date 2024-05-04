@@ -2,13 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import "./config/dbConnection";
 import { combinedRoutes } from "./routes";
+import { docs } from './utils/swagger';
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
 app.use(combinedRoutes);
-
+docs(app);
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
