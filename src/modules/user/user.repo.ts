@@ -39,6 +39,32 @@ class UserRepo implements DAO {
   // async logoutUser() {}
 
   // async updateUser(id: string, updatedField) {}
+  async deleteUser(id: number) {
+    const deletedUser = await User.destroy({ where: { id: id } });
+
+    if (typeof deletedUser === "undefined") {
+      throw new Error("user is not found");
+    }
+    return deletedUser;
+  }
+  async updateUser(
+    id: string,
+    updatedField: {
+      username?: string;
+      firstname?: string;
+      lastname?: string;
+    }
+  ) {
+    const user = await User.findOne({ where: { id: id } });
+    if (!user) throw new Error("user is not found");
+
+    if (updatedField.username) user.username = updatedField.username;
+    if (updatedField.firstname) user.firstname = updatedField.firstname;
+    if (updatedField.lastname) user.lastname = updatedField.lastname;
+
+    await user.save();
+    return user;
+  }
 }
 
 export default UserRepo;
