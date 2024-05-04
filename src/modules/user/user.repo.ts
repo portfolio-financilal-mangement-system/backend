@@ -36,6 +36,9 @@ class UserRepo implements DAO {
     const token = await User.generateAuthToken(user);
     return { user, token };
   }
+  // async logoutUser() {}
+
+  // async updateUser(id: string, updatedField) {}
 }
 
 export default UserRepo;
