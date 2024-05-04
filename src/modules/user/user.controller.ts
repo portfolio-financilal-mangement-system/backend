@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
-import { UserAttributes } from "../../utils/types";
+import { AuthRequest, UserAttributes } from "../../utils/types";
 import { DAO } from "../../utils/userDAO";
+import { auth } from "./middleware";
 
 class UserController {
   private router = Router();
@@ -40,9 +41,22 @@ class UserController {
     }
   };
 
+  me = async (req: AuthRequest, res: Response) => {
+    try {
+      res.send(req?.user);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.post("/", this.createUser);
     this.router.post("/login", this.loginUser);
+    this.router.get("/me", auth, this.me);
   }
   getRoutes() {
     return this.router;

@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface UserAttributes {
   id?: string;
   username: string;
@@ -5,4 +7,9 @@ export interface UserAttributes {
   lastname: string;
   email: string;
   password: string;
+}
+
+export interface AuthRequest extends Request {
+  user?: UserAttributes;
+  token?: string;
 }
