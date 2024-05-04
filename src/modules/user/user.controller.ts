@@ -53,10 +53,60 @@ class UserController {
     }
   };
 
+  deleteUser = async (req: AuthRequest, res: Response) => {
+    try {
+      const id = req.user?.id;
+
+      if (!id) throw new Error("user is not found");
+
+      const deletedUser = await this.service.deleteUser(+id);
+      if (!deletedUser) throw new Error("user is not found");
+      res.send({ message: "user has been deleted" });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  updateUser = async (req: AuthRequest, res: Response) => {
+    try {
+      const id = req.user?.id;
+      if (!id) throw new Error("Token has been expired");
+
+      const updates = Object.keys(req.body);
+      const allowedUpdates = ["username", "firstname", "lastname"];
+
+      const isValidOperation = updates.every((update) =>
+        allowedUpdates.includes(update)
+      );
+
+      if (!isValidOperation)
+        return res.status(400).json({ error: "invalid updates!" });
+
+      if (!req.body.username || !req.body.firstname || !req.body.lastname)
+        return res.status(400).send({ err: "please provide with infromation" });
+
+      const updatedUser = await this.service.updateUser(id, req.body);
+
+      res.send(updatedUser);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.post("/", this.createUser);
     this.router.post("/login", this.loginUser);
     this.router.get("/me", auth, this.me);
+    this.router.delete("/", auth, this.deleteUser);
+    this.router.patch("/", auth, this.updateUser);
   }
   getRoutes() {
     return this.router;
