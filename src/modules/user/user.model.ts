@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
 import { UserAttributes } from "../../utils/types";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,6 +15,21 @@ class User extends Model {
   declare lastname: string;
   declare email: string;
   declare password: string;
+
+  toJSON() {
+    // Hide sensitive data before sending the response
+    const values = { ...this.get() };
+    delete values.password;
+    return values;
+  }
+
+  static async generateAuthToken(user: UserAttributes) {
+    // Generate JWT token
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+      expiresIn: "1h",
+    });
+    return token;
+  }
 }
 
 User.init(

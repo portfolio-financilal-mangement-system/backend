@@ -22,8 +22,27 @@ class UserController {
       res.status(500).send({ err: "internal server error" });
     }
   };
+
+  loginUser = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        return res.status(400).send({ error: "please fill your information" });
+      }
+      const user = await this.service.findByCredentials(email, password);
+      res.send(user);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(500).send({ error: err.message });
+      } else {
+        res.status(500).send({ error: "An error occurred" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.post("/", this.createUser);
+    this.router.post("/login", this.loginUser);
   }
   getRoutes() {
     return this.router;

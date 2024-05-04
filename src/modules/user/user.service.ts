@@ -10,6 +10,9 @@ class UserService implements DAO {
   async createUser(user: UserAttributes) {
     return await this.service.createUser(user);
   }
+  async findByCredentials(email: string, password: string) {
+    return this.service.findByCredentials(email, password);
+  }
 }
 
 export default UserService;
