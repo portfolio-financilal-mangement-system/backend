@@ -1,40 +1,19 @@
-import { Sequelize, Model, DataTypes, Optional } from "sequelize";
+import { Sequelize, Model, DataTypes } from "sequelize";
+import { UserAttributes } from "../../utils/types";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+dotenv.config();
 
-const sequelize = new Sequelize(
-  "your_database_name",
-  "your_username",
-  "your_password",
-  {
-    dialect: "mssql", // Specify dialect for SQL Server
-    host: "your_server_host", // Replace with your SQL Server host
-    port: 1433, // Default SQL Server port
-  }
-);
+const DB_URL: string = process.env.DB_URL as string;
 
-export interface UserAttributes {
-  id: number;
-  username: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  // Add other user-related fields as needed (e.g., firstName, lastName)
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+const sequelize = new Sequelize(process.env.DB_URL as string);
 
-interface UserCreationAttributes extends Optional<UserAttributes, "id"> {} // Allow omitting 'id' during creation
-
-class User extends Model<UserAttributes, UserCreationAttributes> {
-  public id!: number; // Non-null assertion for primary key
-  public username!: string;
-  public firstname!: string;
-  public lastname!: string;
-  public email!: string;
-  public password!: string;
-  // Add other user-related fields as needed (e.g., firstName, lastName)
-  public readonly createdAt!: Date; // Readonly timestamp
-  public readonly updatedAt!: Date; // Readonly timestamp
+class User extends Model {
+  declare username: string;
+  declare firstname: string;
+  declare lastname: string;
+  declare email: string;
+  declare password: string;
 }
 
 User.init(
@@ -42,48 +21,48 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     lastname: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    // Add other user-related fields as needed (e.g., firstName, lastName)
   },
   {
-    sequelize,
     tableName: "users",
-    timestamps: true,
+
+    sequelize,
+    modelName: "User",
+    hooks: {
+      async beforeCreate(user: UserAttributes) {
+        if (user.password) {
+          const saltRounds = 10;
+          const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+          user.password = hashedPassword;
+        }
+      },
+    },
   }
 );
-
-// (Optional) Force table creation (dropping existing data)
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log('User table created successfully');
-//   })
-//   .catch((error) => {
-//     console.error('Error creating user table:', error);
-//   });
 
 export default User;

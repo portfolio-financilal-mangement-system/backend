@@ -1,29 +1,18 @@
-var Connection = require("tedious").Connection;
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
-// Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
-
-var config = {
-  server: "DESKTOP-M210O5ISQLEXPRESS", // or "localhost"
-  options: {},
-  authentication: {
-    type: "default",
-    options: {
-      userName: "root",
-      password: "mah123!",
-    },
-  },
-};
-
-var connection = new Connection(config);
-
-// Setup event handler when the connection is established.
-connection.on("connect", function (err: any) {
-  if (err) {
-    return console.log("Error: ", err);
+const sequelize = new Sequelize(
+  process.env.NAME as string,
+  process.env.ROOT as string,
+  process.env.PASSWORD as string,
+  {
+    host: process.env.HOST as string,
+    dialect: "mysql",
   }
-  // If no error, then good to go...
-  console.log("connected");
-});
+);
 
-// Initialize the connection.
-connection.connect();
+sequelize
+  .authenticate()
+  .then(() => console.log("connected"))
+  .catch((err) => console.log("something went wrong " + err));
