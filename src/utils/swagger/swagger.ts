@@ -12,7 +12,7 @@ const options = {
     },
     servers: [{ url: `http://locahost:9000/` }],
   },
-  apis: ["./src/utils/*.ts", "./src/modules/*.ts"],
+  apis: ["./src/utils/swagger/*.ts", "./src/modules/*.ts"],
 };
 
 const spacs = swaggerJSDoc(options);
