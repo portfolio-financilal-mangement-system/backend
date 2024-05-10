@@ -9,23 +9,42 @@ export class WalletService {
     this.walletRepository = new WalletRepository();
   }
 
-  createPortfolio(userId: string, assets: FinancialAsset[]): Portfolio {
-    const portfolio: Portfolio = {
+  createPortfolio(
+    userId: string,
+    // PortfolioId: number,
+    // name: string,
+    // creationDate: string,
+    assets: (typeof FinancialAsset)[]
+  ): typeof Portfolio {
+    const portfolio: typeof Portfolio = {
       userId,
+      PortfolioId: generateUniqueId(), 
+      name: "Default Portfolio Name",
+      creationDate: getCurrentDate(),
       assets,
     };
     return this.walletRepository.createPortfolio(portfolio);
   }
 
-  getPortfolio(userId: string): Portfolio | undefined {
+  getPortfolio(userId: string):typeof Portfolio | undefined {
     return this.walletRepository.getPortfolio(userId);
   }
 
-  calculatePortfolioValue(portfolio: Portfolio): number {
+  calculatePortfolioValue(portfolio:typeof Portfolio): number {
     let totalValue = 0;
     for (const asset of portfolio.assets) {
-      totalValue += asset.quantity * asset.pricePerUnit;
+      totalValue += asset.quantity * asset.purchasePrice;
     }
     return totalValue;
   }
 }
+
+
+function generateUniqueId(): number {
+  return Math.floor(Math.random() * 1000000);
+}
+
+function getCurrentDate(): string {
+   return new Date().toISOString();
+}
+

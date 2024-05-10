@@ -2,17 +2,17 @@
 
 import { Portfolio } from "./wallet.model";
 
-// هنا المفروض الاتصال بالداتابيز 
-
 export class WalletRepository {
-  private portfolios: Portfolio[] = [];
+  private portfolios: (typeof Portfolio)[] = [];
 
-  createPortfolio(portfolio: Portfolio): Portfolio {
+  createPortfolio(portfolio: typeof Portfolio): typeof Portfolio {
     this.portfolios.push(portfolio);
     return portfolio;
   }
 
-  getPortfolio(userId: string): Portfolio | undefined {
-    return this.portfolios.find((portfolio) => portfolio.userId === userId);
+  getPortfolio(userId: string): typeof Portfolio | undefined {
+    return this.portfolios.find(
+      (portfolio) => typeof portfolio.userId === userId
+    );
   }
 }

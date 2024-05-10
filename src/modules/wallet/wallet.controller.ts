@@ -7,7 +7,7 @@ const walletService = new WalletService();
 
 export const createPortfolio = (req: Request, res: Response) => {
   const userId: string = req.body.userId;
-  const assets: FinancialAsset[] = req.body.assets;
+  const assets:typeof FinancialAsset[] = req.body.assets;
   const portfolio = walletService.createPortfolio(userId, assets);
   res.status(201).json(portfolio);
 };
