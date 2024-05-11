@@ -10,7 +10,7 @@ const options = {
       description: "this is api for the financial management system",
       version: "1.0.0",
     },
-    servers: [{ url: `http://locahost:9000/` }],
+    servers: [{ url: `http://locahost:5000/` }],
   },
   apis: ["./src/utils/swagger/*.ts", "./src/modules/*.ts"],
 };
