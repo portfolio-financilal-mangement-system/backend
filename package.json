@@ -25,6 +25,7 @@
     "sequelize": "^6.37.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "yahoo-finance2": "^2.11.2"
   }
 }
