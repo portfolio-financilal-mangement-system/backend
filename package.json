@@ -27,5 +27,8 @@
     "swagger-ui-express": "^5.0.0",
     "ts-node": "^10.9.2",
     "yahoo-finance2": "^2.11.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0"
   }
 }
