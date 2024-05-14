@@ -1,18 +1,16 @@
+import { walletDAO } from "../../utils/walletDAO";
+import { Wallet } from "./wallet.model";
 
+class WalletRepository implements walletDAO {
+  // private portfolios: (typeof Wallet)[] = [];
 
-import { Portfolio } from "./wallet.model";
+  createWallet() {}
 
-export class WalletRepository {
-  private portfolios: (typeof Portfolio)[] = [];
-
-  createPortfolio(portfolio: typeof Portfolio): typeof Portfolio {
-    this.portfolios.push(portfolio);
-    return portfolio;
-  }
-
-  getPortfolio(userId: string): typeof Portfolio | undefined {
-    return this.portfolios.find(
-      (portfolio) => typeof portfolio.userId === userId
-    );
-  }
+  // getPortfolio(userId: string): typeof Portfolio | undefined {
+  //   return this.portfolios.find(
+  //     (portfolio) => typeof portfolio.userId === userId
+  //   );
+  // }
 }
+
+export default WalletRepository;

@@ -26,7 +26,7 @@ class StockController {
         "BAC",
         "NESN.SW",
       ]);
-      console.log(companies);
+      // console.log(companies);
 
       res.send({ companies });
     } catch (err) {
