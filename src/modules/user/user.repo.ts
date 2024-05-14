@@ -17,7 +17,8 @@ class UserRepo implements DAO {
       console.log(createdUser);
       return createdUser;
     } catch (error) {
-      return error;
+      if (error instanceof Error) throw new Error(error.message);
+      else throw new Error("error in database");
     }
   }
   async findByCredentials(email: string, password: string) {

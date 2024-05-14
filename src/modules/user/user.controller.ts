@@ -17,10 +17,14 @@ class UserController {
         return res.status(400).send({ error: "please fill your infomation" });
       }
       const user = await this.service.createUser(req.body);
-
+      console.log(user);
       res.status(201).send({ message: "user has been created successfully" });
     } catch (err) {
-      res.status(500).send({ err: "internal server error" });
+      if (err instanceof Error) {
+        res.status(500).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
     }
   };
 
@@ -34,9 +38,9 @@ class UserController {
       res.send(user);
     } catch (err) {
       if (err instanceof Error) {
-        res.status(500).send({ error: err.message });
+        return res.status(500).send({ error: err.message });
       } else {
-        res.status(500).send({ error: "An error occurred" });
+        return res.status(500).send({ error: "An error occurred" });
       }
     }
   };
