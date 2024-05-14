@@ -1,1 +1,3 @@
-interface walletDAO {}
+export interface walletDAO {
+  createWallet();
+}

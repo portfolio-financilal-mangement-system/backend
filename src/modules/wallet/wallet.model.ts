@@ -1,32 +1,37 @@
+import { DataTypes, Model, Sequelize } from "sequelize";
 
-// export interface FinancialAsset {
-//   name: string;
-//   type: string;
-//   quantity: number;
-//   pricePerUnit: number;
-// }
+const DB_URL: string = process.env.DB_URL as string;
 
-// export interface Portfolio {
-//   userId: string;
-//   assets: FinancialAsset[];
-// }
+const sequelize = new Sequelize(DB_URL as string);
 
-import { PORTFOLIO, ASSETPROTFOLIO } from "./walletInterface";
+class Wallet extends Model {
+  declare purchaseDate: string;
+  declare purchasePrice: Date;
+  declare quantity: string;
+  declare totalCost: number;
+}
 
-const FinancialAsset: ASSETPROTFOLIO = {
-  ID: 0,
-  purchaseDate: "",
-  purchasePrice: 0,
-  quantity: 0,
-  totalCost:0,
-};  
+Wallet.init(
+  {
+    walletId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+    purchaseDate: {
+      type: DataTypes.DATE,
+    },
+    quantity: {
+      type: DataTypes.NUMBER,
+    },
+    totalCost: {
+      type: DataTypes.NUMBER,
+    },
+  },
+  {
+    tableName: "portfolio",
+    sequelize,
+    modelName: "Wallet",
+  }
+);
 
-const Portfolio: PORTFOLIO = {
-  PortfolioId: 0,
-  name: "",
-  userId: "",
-  creationDate: "",
-  assets: [FinancialAsset],
-};  
-
- export { Portfolio, FinancialAsset };
+export default Wallet;

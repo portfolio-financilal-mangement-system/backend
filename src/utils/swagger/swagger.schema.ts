@@ -24,10 +24,10 @@
  *          password:
  *            type: string
  *            description: The password of the user
- *           accessToken:
+ *          accessToken:
  *                  type: string
  *                  description: Tokens of the user
- *            refreshToken:
+ *          refreshToken:
  *                  type: string
  *                  description: Tokens of the user
  */

@@ -7,7 +7,7 @@ dotenv.config();
 
 const DB_URL: string = process.env.DB_URL as string;
 
-const sequelize = new Sequelize(process.env.DB_URL as string);
+const sequelize = new Sequelize(DB_URL);
 
 class User extends Model {
   declare username: string;
