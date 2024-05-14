@@ -10,7 +10,7 @@ export const getStocks = async (req: Request, res: Response) => {
   try {
     
     const response = await axios.get(
-      "https://backend-3w2u.onrender.com/docs/#/Stocks/get_stocks"
+      "https://backend-production-fb5e.up.railway.app/docs/#/Stocks/get_stocks_all"
     );
     const stocks = response.data.companies;
 
@@ -37,7 +37,7 @@ export const getStockByName = async (req: Request, res: Response) => {
     const companyName: string = req.params.companyName;
    
     const response = await axios.get(
-      `https://backend-3w2u.onrender.com/docs/#/Stocks/get_stocks__companyName_`
+      `https://backend-production-fb5e.up.railway.app/docs/#/Stocks/get_stocks_search__companyName_`
     );
     const stock = response.data;
 
@@ -65,7 +65,7 @@ export const searchStocks = async (req: Request, res: Response) => {
     const productName: string = req.query.search;
     
     const response = await axios.get(
-      `https://backend-3w2u.onrender.com/docs/#/Stocks/get_stocks_search`
+      `https://backend-production-fb5e.up.railway.app/docs/#/Stocks/get_stocks_item_seach__productName_`
     );
     const results = response.data.result;
 
