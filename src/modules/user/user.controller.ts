@@ -17,7 +17,7 @@ class UserController {
         return res.status(400).send({ error: "please fill your infomation" });
       }
       const user = await this.service.createUser(req.body);
-      console.log(user);
+      // console.log(user);
       res.status(201).send({ message: "user has been created successfully" });
     } catch (err) {
       if (err instanceof Error) {

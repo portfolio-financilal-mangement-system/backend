@@ -5,8 +5,6 @@ import { DAO } from "../../utils/userDAO";
 class UserRepo implements DAO {
   async createUser(user: UserAttributes) {
     try {
-      console.log(user);
-
       const createdUser = await User.create({
         username: user.username,
         firstname: user.firstname,
