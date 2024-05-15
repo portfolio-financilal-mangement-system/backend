@@ -51,8 +51,8 @@ User.init(
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
+      allowNull: false,
       validate: {
         isEmail: true,
       },
@@ -78,5 +78,9 @@ User.init(
     },
   }
 );
+
+sequelize.sync().then(() => {
+  console.log("tables created!");
+});
 
 export default User;
