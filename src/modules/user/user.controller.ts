@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { AuthRequest, UserAttributes } from "../../utils/types";
-import { DAO } from "../../utils/userDAO";
+import { AuthRequest, UserAttributes } from "../../utils/types/types";
+import { DAO } from "../../utils/types/userDAO";
 import { auth } from "./middleware";
 
 class UserController {

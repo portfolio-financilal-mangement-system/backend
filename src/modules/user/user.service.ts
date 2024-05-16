@@ -1,5 +1,5 @@
-import { UserAttributes } from "../../utils/types";
-import { DAO } from "../../utils/userDAO";
+import { UserAttributes } from "../../utils/types/types";
+import { DAO } from "../../utils/types/userDAO";
 
 class UserService implements DAO {
   private service: DAO;
@@ -17,7 +17,7 @@ class UserService implements DAO {
     return await this.service.deleteUser(id);
   }
   async updateUser(
-    id: string,
+    id: number,
     updatedField: { username?: string; firstname?: string; lastname?: string }
   ) {
     return await this.service.updateUser(id, updatedField);

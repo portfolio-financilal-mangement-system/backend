@@ -5,7 +5,7 @@ export interface DAO {
   findByCredentials(email: string, password: string);
   // logoutUser();
   updateUser(
-    id: string,
+    id: number,
     updatedField: { username?: string; firstname?: string; lastname?: string }
   );
   deleteUser(id: number);

@@ -1,4 +1,4 @@
-import { DAO } from "../../utils/userDAO";
+import { DAO } from "../../utils/types/userDAO";
 import UserController from "./user.controller";
 import UserRepo from "./user.repo";
 import UserService from "./user.service";
