@@ -151,9 +151,13 @@ class StockController {
         return res.status(400).send({ err: "please provide information" });
 
       const id: number = +req.params.id as number;
+
+      //  LOGIC FOR CALCULATING THE RETURN DATA
       const results = await yahooFinance.quote(company_name.toUpperCase());
+
       const price: number = results?.regularMarketPrice as number;
       const total_cost = price * shares;
+
       const stock = await this.controller.createStock({
         portfolio_id: id,
         company_name,

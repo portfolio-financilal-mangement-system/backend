@@ -46,7 +46,11 @@ Stock.init(
   }
 );
 
-Portfolio.hasMany(Stock, { as: "stocks" });
+Portfolio.hasMany(Stock, {
+  onDelete: "CASCADE",
+  foreignKey: "portfolio_id",
+  as: "stocks",
+});
 Stock.belongsTo(Portfolio, { foreignKey: "portfolio_id", as: "portfolio" });
 
 export default Stock;
