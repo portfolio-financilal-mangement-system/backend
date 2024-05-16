@@ -26,9 +26,20 @@ class StockController {
         "BAC",
         "NESN.SW",
       ]);
-      // console.log(companies);
+      const formattedCompanies = companies.map((company, index) => ({
+        name: company.shortName,
+        symbol: companies[index],
+        price: company.regularMarketPrice,
+        change: company.regularMarketChange,
+        percentChange: company.regularMarketChangePercent,
+        volume: company.regularMarketVolume,
+        avgVolume: company.averageVolume,
+        marketCap: company.marketCap,
+        peRatio: company.trailingPE,
+        range52Week: company.fiftyTwoWeekRange,
+      }));
 
-      res.send({ companies });
+      res.send({ companies: formattedCompanies });
     } catch (err) {
       if (err instanceof Error)
         return res.status(400).send({ err: err.message });
@@ -73,8 +84,47 @@ class StockController {
       const query = req.query.search;
       if (query) {
         const result = await yahooFinance.search(query as string);
+        const symbolData = [];
+        const symbol: any[] = result.quotes.map((quote) => [
+          ...symbolData,
+          quote.symbol,
+        ]);
+        const data = await yahooFinance.quote([...symbol]);
 
-        res.send({ result });
+        const resultFormat = data.map((company, index) => ({
+          name: company.shortName,
+          price: company.regularMarketPrice,
+          change: company.regularMarketChange,
+          percentChange: company.regularMarketChangePercent,
+          volume: company.regularMarketVolume,
+          avgVolume: company.averageVolume,
+          marketCap: company.marketCap,
+          peRatio: company.trailingPE,
+          range52Week: company.fiftyTwoWeekRange,
+        }));
+
+        res.send({ result: resultFormat });
+
+        // if (data) {
+        //   const productData = {
+        //     name: data.shortName,
+        //     symbol,
+        //     price: data.regularMarketPrice,
+        //     change: data.regularMarketChange,
+        //     percentChange: data.regularMarketChangePercent,
+        //     volume: data.regularMarketVolume,
+        //     avgVolume: data.averageVolume,
+        //     marketCap: data.marketCap,
+        //     peRatio: data.trailingPE,
+        //     range52Week: data.fiftyTwoWeekRange,
+        //   };
+        //   res.send({ productData });
+        // } else {
+        //   res.status(404).send({
+        //     error:
+        //       "the product you provided isn't included in our! try another one",
+        //   });
+        // }
       } else {
         res.send({ error: "you must provide a query" });
       }

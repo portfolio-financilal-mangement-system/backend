@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "./user.model";
-import { UserAttributes } from "../../utils/types";
-import { DAO } from "../../utils/userDAO";
+import { UserAttributes } from "../../utils/types/types";
+import { DAO } from "../../utils/types/userDAO";
 class UserRepo implements DAO {
   async createUser(user: UserAttributes) {
     try {
@@ -12,7 +12,6 @@ class UserRepo implements DAO {
         email: user.email,
         password: user.password,
       });
-      console.log(createdUser);
       return createdUser;
     } catch (error) {
       if (error instanceof Error) throw new Error(error.message);
@@ -47,7 +46,7 @@ class UserRepo implements DAO {
     return deletedUser;
   }
   async updateUser(
-    id: string,
+    id: number,
     updatedField: {
       username?: string;
       firstname?: string;
