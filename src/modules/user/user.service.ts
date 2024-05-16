@@ -1,9 +1,9 @@
 import { UserAttributes } from "../../utils/types/types";
-import { DAO } from "../../utils/types/userDAO";
+import { UserDAO } from "../../utils/types/DAO";
 
-class UserService implements DAO {
-  private service: DAO;
-  constructor(Service: DAO) {
+class UserService implements UserDAO {
+  private service: UserDAO;
+  constructor(Service: UserDAO) {
     this.service = Service;
   }
 

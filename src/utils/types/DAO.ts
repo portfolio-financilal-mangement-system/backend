@@ -1,6 +1,6 @@
-import { UserAttributes } from "./types";
+import { portfolioAttributes, StockAttributes, UserAttributes } from "./types";
 
-export interface DAO {
+export interface UserDAO {
   createUser(user: UserAttributes);
   findByCredentials(email: string, password: string);
   // logoutUser();
@@ -9,4 +9,12 @@ export interface DAO {
     updatedField: { username?: string; firstname?: string; lastname?: string }
   );
   deleteUser(id: number);
+}
+
+export interface WalletDAO {
+  createWallet(data: portfolioAttributes);
+}
+
+export interface StockDAO {
+  createStock(data: StockAttributes);
 }

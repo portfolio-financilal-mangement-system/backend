@@ -1,8 +1,8 @@
 import { portfolioAttributes } from "../../utils/types/types";
-import { walletDAO } from "../../utils/types/walletDAO";
+import { WalletDAO } from "../../utils/types/DAO";
 import Portfolio from "./portfolio.model";
 
-class WalletRepository implements walletDAO {
+class WalletRepository implements WalletDAO {
   // private portfolios: (typeof Wallet)[] = [];
 
   async createWallet(data: portfolioAttributes) {
