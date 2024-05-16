@@ -2,15 +2,15 @@ import { Router, Request, Response } from "express";
 import { WalletService } from "./portfolio.service";
 // import { FinancialAsset } from "./portfolio.model";
 // import axios from "axios";
-import { walletDAO } from "../../utils/types/walletDAO";
+import { WalletDAO } from "../../utils/types/DAO";
 import { AuthRequest } from "../../utils/types/types";
 import { auth } from "../user/middleware";
 
 class PortfolioController {
-  private controller: walletDAO;
+  private controller: WalletDAO;
   private router = Router();
 
-  constructor(Controller: walletDAO) {
+  constructor(Controller: WalletDAO) {
     this.controller = Controller;
   }
 

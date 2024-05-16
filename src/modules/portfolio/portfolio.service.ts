@@ -1,10 +1,10 @@
 import { portfolioAttributes } from "../../utils/types/types";
-import { walletDAO } from "../../utils/types/walletDAO";
+import { WalletDAO } from "../../utils/types/DAO";
 
-export class WalletService implements walletDAO {
-  private service: walletDAO;
+export class WalletService implements WalletDAO {
+  private service: WalletDAO;
 
-  constructor(Service: walletDAO) {
+  constructor(Service: WalletDAO) {
     this.service = Service;
   }
 

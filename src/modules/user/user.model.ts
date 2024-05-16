@@ -79,8 +79,8 @@ User.init(
   }
 );
 
-sequelize.sync().then(() => {
-  console.log("tables created!");
-});
+// sequelize.sync().then(() => {
+//   console.log("tables created!");
+// });
 
 export default User;

@@ -1,12 +1,12 @@
 import { Request, Response, Router } from "express";
 import { AuthRequest, UserAttributes } from "../../utils/types/types";
-import { DAO } from "../../utils/types/userDAO";
+import { UserDAO } from "../../utils/types/DAO";
 import { auth } from "./middleware";
 
 class UserController {
   private router = Router();
-  private service: DAO;
-  constructor(service: DAO) {
+  private service: UserDAO;
+  constructor(service: UserDAO) {
     this.service = service;
   }
 

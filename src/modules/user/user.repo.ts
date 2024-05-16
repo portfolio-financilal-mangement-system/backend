@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import User from "./user.model";
 import { UserAttributes } from "../../utils/types/types";
-import { DAO } from "../../utils/types/userDAO";
-class UserRepo implements DAO {
+import { UserDAO } from "../../utils/types/DAO";
+class UserRepo implements UserDAO {
   async createUser(user: UserAttributes) {
     try {
       const createdUser = await User.create({

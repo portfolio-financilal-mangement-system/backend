@@ -1,7 +1,14 @@
 import { Request, Response, Router } from "express";
 import yahooFinance from "yahoo-finance2";
+import { AuthRequest } from "../../utils/types/types";
+import { StockDAO } from "../../utils/types/DAO";
+import { auth } from "../user/middleware";
 class StockController {
   private router = Router();
+  private controller: StockDAO;
+  constructor(Controller: StockDAO) {
+    this.controller = Controller;
+  }
 
   getStocks = async (req: Request, res: Response) => {
     try {
@@ -135,10 +142,40 @@ class StockController {
     }
   };
 
+  addStockToPortfolio = async (req: AuthRequest, res: Response) => {
+    try {
+      const { company_name, shares }: { company_name: string; shares: number } =
+        req.body;
+
+      if (!company_name || !shares)
+        return res.status(400).send({ err: "please provide information" });
+
+      const id: number = +req.params.id as number;
+      const results = await yahooFinance.quote(company_name.toUpperCase());
+      const price: number = results?.regularMarketPrice as number;
+      const total_cost = price * shares;
+      const stock = await this.controller.createStock({
+        portfolio_id: id,
+        company_name,
+        stock_price: price,
+        total_cost,
+        shares,
+      });
+      res.send({ stock });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.get("/all", this.getStocks);
     this.router.get("/", this.getOneStockByCompanyName);
     this.router.get("/item", this.getOneStockByProductName);
+    this.router.post("/create-stock/:id", auth, this.addStockToPortfolio);
   }
 
   getRoutes() {
