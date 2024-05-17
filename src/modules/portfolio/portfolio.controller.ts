@@ -36,8 +36,56 @@ class PortfolioController {
     }
   };
 
+  readAllWallets = async (req: AuthRequest, res: Response) => {
+    try {
+      const userId = req.user?.id;
+
+      const portfolios = await this.controller.readAllWallets(userId as number);
+      res.send({ portfolios });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  readWallet = async (req: AuthRequest, res: Response) => {
+    try {
+      const userId = req.user?.id as number;
+      const portfolioId = +req.params.id as number;
+      const portfolio = await this.controller.readWallet(portfolioId, userId);
+      res.send({ portfolio });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  deleteWallet = async (req: AuthRequest, res: Response) => {
+    try {
+      const userId = req.user?.id as number;
+      const portfolioId = +req.params.id as number;
+      await this.controller.deleteWallet(portfolioId, userId);
+      res.send({ message: "portfolio has been deleted" });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
   initRoutes() {
     this.router.post("/", auth, this.createWallet);
+    this.router.get("/all-portfolios", auth, this.readAllWallets);
+    this.router.get("/:id", auth, this.readWallet);
+    this.router.delete("/:id", auth, this.deleteWallet);
   }
 
   getRoutes() {

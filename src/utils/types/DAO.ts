@@ -13,6 +13,10 @@ export interface UserDAO {
 
 export interface WalletDAO {
   createWallet(data: portfolioAttributes);
+  readAllWallets(userId: number);
+  readWallet(id: number, userId: number);
+  deleteWallet(id: number, userId: number);
+  // updateWallet(id: number, data: portfolioAttributes);
 }
 
 export interface StockDAO {

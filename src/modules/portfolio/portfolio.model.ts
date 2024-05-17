@@ -40,7 +40,11 @@ Portfolio.init(
   }
 );
 
-User.hasMany(Portfolio, { foreignKey: "userId", as: "portfolios" });
+User.hasMany(Portfolio, {
+  onDelete: "CASCADE",
+  foreignKey: "userId",
+  as: "portfolios",
+});
 Portfolio.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 export default Portfolio;
