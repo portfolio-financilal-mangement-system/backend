@@ -46,7 +46,7 @@
  */
 /**
  * @swagger
- *  /wallets/all-portfolios:
+ *  /portfolio/all-portfolios:
  *      get:
  *          tags:
  *              - Portfolio
@@ -86,7 +86,7 @@
  */
 /**
  * @swagger
- *  /wallets/{id}:
+ *  /portfolio/{id}:
  *      get:
  *          tags:
  *              - Portfolio
@@ -133,7 +133,7 @@
  */
 /**
  * @swagger
- *  /wallets/{id}:
+ *  /portfolio/{id}:
  *      delete:
  *          tags:
  *              - Portfolio
