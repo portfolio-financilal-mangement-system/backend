@@ -133,3 +133,71 @@
  *                  type: string
  *                  description: The type of the product
  */
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      AddStockRequest:
+ *        type: object
+ *        properties:
+ *          company_name:
+ *            type: string
+ *            description: The name of the company
+ *          shares:
+ *            type: integer
+ *            description: The number of shares to add
+ *        required:
+ *          - company_name
+ *          - shares
+ *      AddStockResponse:
+ *        type: object
+ *        properties:
+ *          stock:
+ *            type: object
+ *            properties:
+ *              portfolio_id:
+ *                type: integer
+ *                description: The ID of the portfolio
+ *              company_name:
+ *                type: string
+ *                description: The name of the company
+ *              stock_price:
+ *                type: number
+ *                description: The price of the stock
+ *              total_cost:
+ *                type: number
+ *                description: The total cost of the stock
+ *              shares:
+ *                type: integer
+ *                description: The number of shares
+ */
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      CreateWalletRequest:
+ *        type: object
+ *        properties:
+ *          name:
+ *            type: string
+ *            description: The name of the wallet
+ *        required:
+ *          - name
+ *      CreateWalletResponse:
+ *        type: object
+ *        properties:
+ *          wallet:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: integer
+ *                description: The ID of the wallet
+ *              name:
+ *                type: string
+ *                description: The name of the wallet
+ *              userId:
+ *                type: integer
+ *                description: The ID of the user who owns the wallet
+ */
+
+

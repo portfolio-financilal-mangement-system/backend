@@ -207,3 +207,56 @@
  *                          example:
  *                              { error: "internal server error" }
  */
+/**
+ * @swagger
+ *  /stocks/create-stock/{id}:
+ *      post:
+ *          tags:
+ *              - Portfolio
+ *          summary: Add stock to portfolio
+ *          description: Add a specified number of shares of a company’s stock to a portfolio.
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                description: The ID of the portfolio
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/AddStockRequest'
+ *          responses:
+ *              "200":
+ *                 description: Successfully added stock to portfolio
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/AddStockResponse'
+ *              "400":
+ *                 description: Bad request or missing information
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "please provide information" }
+ *              "500":
+ *                 description: Internal server error
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "internal server error" }
+ */
