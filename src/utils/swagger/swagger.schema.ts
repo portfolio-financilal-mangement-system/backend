@@ -200,4 +200,50 @@
  *                description: The ID of the user who owns the wallet
  */
 
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      ReadAllWalletsResponse:
+ *        type: object
+ *        properties:
+ *          portfolios:
+ *            type: array
+ *            items:
+ *              $ref: '#/components/schemas/WalletItem'
+ *      WalletItem:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: integer
+ *            description: The ID of the wallet
+ *          name:
+ *            type: string
+ *            description: The name of the wallet
+ *          userId:
+ *            type: integer
+ *            description: The ID of the user who owns the wallet
+ */
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      ReadWalletResponse:
+ *        type: object
+ *        properties:
+ *          portfolio:
+ *            $ref: '#/components/schemas/WalletItem'
+ *      WalletItem:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: integer
+ *            description: The ID of the wallet
+ *          name:
+ *            type: string
+ *            description: The name of the wallet
+ *          userId:
+ *            type: integer
+ *            description: The ID of the user who owns the wallet
+ */
 
