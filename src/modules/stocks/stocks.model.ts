@@ -9,7 +9,6 @@ class Stock extends Model {
   declare shares: number;
   declare total_cost: number;
   declare stock_price: number;
-  declare stock_date: Date;
   declare company_name: string;
 }
 
@@ -29,9 +28,6 @@ Stock.init(
     },
     stock_price: {
       type: DataTypes.FLOAT,
-    },
-    stock_date: {
-      type: DataTypes.DATE,
     },
     company_name: {
       type: DataTypes.STRING,

@@ -197,17 +197,117 @@ class StockController {
       //  LOGIC FOR CALCULATING THE RETURN DATA
       const results = await yahooFinance.quote(company_name.toUpperCase());
 
-      const price: number = results?.regularMarketPrice as number;
-      const total_cost = price * shares;
-
+      const currentPrice: number = results?.regularMarketPrice as number;
+      const purchasePrice = currentPrice;
+      const total_cost = purchasePrice * shares;
+      let regularMarketDayHigh;
+      let regularMarketDayLow;
+      if (results.regularMarketDayHigh && results.regularMarketDayLow) {
+        regularMarketDayLow = +results?.regularMarketDayLow as number;
+        regularMarketDayHigh = +results?.regularMarketDayHigh as number;
+      }
       const stock = await this.controller.createStock({
         portfolio_id: id,
         company_name,
-        stock_price: price,
+        stock_price: currentPrice,
         total_cost,
         shares,
       });
       res.send({ stock });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  getEarnings = async (req: AuthRequest, res: Response) => {
+    try {
+      const stockId = +req.params.stockId;
+      const portfolioId = +req.params.portfolioId;
+      let userId;
+      if (req.user?.id) userId = +req.user?.id as number;
+      const stock = await this.controller.readStock(
+        stockId,
+        portfolioId,
+        userId
+      );
+      // console.log(stock.dataValues.company_name);
+      const results = await yahooFinance.quote(
+        stock.dataValues.company_name.toString() as string
+      );
+      const currentPrice: number = results?.regularMarketPrice as number;
+
+      const earnings = +currentPrice - +stock.dataValues.stock_price;
+      const totalEarnings = earnings * +stock.dataValues.shares;
+      res.send({
+        currentPrice,
+        old_price: stock.dataValues.stock_price,
+        earnings,
+        totalEarnings,
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  readAllStocks = async (req: AuthRequest, res: Response) => {
+    try {
+      let userId;
+      if (req.user?.id) {
+        userId = +req.user?.id;
+      }
+      const portfolioId = +req.params.id as number;
+
+      const stocks = await this.controller.readAllStocks(
+        portfolioId,
+        userId as number
+      );
+      res.send(stocks);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  readStock = async (req: AuthRequest, res: Response) => {
+    try {
+      const stockId = +req.params.stockId;
+      const portfolioId = +req.params.portfolioId;
+      let userId;
+      if (req.user?.id) userId = +req.user?.id as number;
+      const stock = await this.controller.readStock(
+        stockId,
+        portfolioId,
+        userId
+      );
+      res.send({ stock });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).send({ err: err.message });
+      } else {
+        res.status(500).send({ err: "internal server error" });
+      }
+    }
+  };
+
+  deleteStock = async (req: AuthRequest, res: Response) => {
+    try {
+      const stockId = +req.params.stockId;
+      const portfolioId = +req.params.portfolioId;
+      let userId;
+      if (req.user?.id) userId = +req.user?.id as number;
+      await this.controller.deleteStock(stockId, portfolioId, userId);
+      res.send({ message: "stock has been deleted" });
     } catch (err) {
       if (err instanceof Error) {
         res.status(400).send({ err: err.message });
@@ -222,6 +322,16 @@ class StockController {
     this.router.get("/", this.getOneStockByCompanyName);
     this.router.get("/item", this.getOneStockByProductName);
     this.router.post("/create-stock/:id", auth, this.addStockToPortfolio);
+    this.router.get("/read-all-stocks/:id", auth, this.readAllStocks);
+
+    this.router.get("/:stockId/:portfolioId", auth, this.readStock);
+    this.router.delete("/:stockId/:portfolioId", auth, this.deleteStock);
+
+    this.router.get(
+      "/get-earnings/:stockId/:portfolioId",
+      auth,
+      this.getEarnings
+    );
   }
 
   getRoutes() {

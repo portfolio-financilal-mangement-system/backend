@@ -260,3 +260,241 @@
  *                              example:
  *                                  { err: "internal server error" }
  */
+/**
+ * @swagger
+ *  /stocks/read-all-stocks/{id}:
+ *      get:
+ *          tags:
+ *              - Stocks
+ *          summary: read all stocks for a specific portfolio
+ *          description: read all stocks for a specific portfolio
+ *          parameters:
+ *              - in: headers
+ *                name: Authorization
+ *                description: Token for authorization
+ *                example: Bearer abcxyz123...
+ *              - in: path
+ *                name: id
+ *                description: portfolio id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *
+ *          responses:
+ *              "200":
+ *                 description: all stocks in portfolio for user
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              $ref: '#/components/schemas/AddStockResponse'
+ *              "400":
+ *                 description: Bad request or missing information
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "please provide information" }
+ *              "500":
+ *                 description: Internal server error
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "internal server error" }
+ */
+/**
+ * @swagger
+ *  /stocks/{stockId}/{portfolioId}:
+ *      get:
+ *          tags:
+ *              - Stocks
+ *          summary: read specific stock for a specific portfolio
+ *          description: read specific stock for a specific portfolio
+ *          parameters:
+ *              - in: headers
+ *                name: Authorization
+ *                description: Token for authorization
+ *                example: Bearer abcxyz123...
+ *              - in: path
+ *                name: stockId
+ *                description: stock id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *              - in: path
+ *                name: portfolioId
+ *                description: portfolio id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *
+ *          responses:
+ *              "200":
+ *                 description: all stocks in portfolio for user
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              $ref: '#/components/schemas/AddStockResponse'
+ *              "400":
+ *                 description: Bad request or missing information
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "please provide information" }
+ *              "500":
+ *                 description: Internal server error
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "internal server error" }
+ */
+/**
+ * @swagger
+ *  /stocks/{stockId}/{portfolioId}:
+ *      delete:
+ *          tags:
+ *              - Stocks
+ *          summary: read specific stock for a specific portfolio
+ *          description: read specific stock for a specific portfolio
+ *          parameters:
+ *              - in: headers
+ *                name: Authorization
+ *                description: Token for authorization
+ *                example: Bearer abcxyz123...
+ *              - in: path
+ *                name: stockId
+ *                description: stock id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *              - in: path
+ *                name: portfolioId
+ *                description: portfolio id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *
+ *          responses:
+ *              "200":
+ *                 description: all stocks in portfolio for user
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              example: {message: stock has been deleted}
+ *              "400":
+ *                 description: Bad request or missing information
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "please provide information" }
+ *              "500":
+ *                 description: Internal server error
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "internal server error" }
+ */
+
+/**
+ * @swagger
+ *  /stocks/get-earnings/{stockId}/{portfolioId}:
+ *      get:
+ *          tags:
+ *              - Stocks
+ *          summary: read all stocks for a specific portfolio
+ *          description: read all stocks for a specific portfolio
+ *          parameters:
+ *              - in: headers
+ *                name: Authorization
+ *                description: Token for authorization
+ *                example: Bearer abcxyz123...
+ *              - in: path
+ *                name: stockId
+ *                description: stock id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *              - in: path
+ *                name: portfolioId
+ *                description: portfolio id
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  description: The ID of the portfolio
+ *
+ *          responses:
+ *              "200":
+ *                 description: all stocks in portfolio for user
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              $ref: '#/components/schemas/Earnings'
+ *              "400":
+ *                 description: Bad request or missing information
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "please provide information" }
+ *              "500":
+ *                 description: Internal server error
+ *                 content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  err:
+ *                                      type: string
+ *                                      description: Error message
+ *                              example:
+ *                                  { err: "internal server error" }
+ */

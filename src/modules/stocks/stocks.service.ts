@@ -10,4 +10,16 @@ export class StockService implements StockDAO {
   async createStock(data: StockAttributes) {
     return await this.service.createStock(data);
   }
+
+  async readAllStocks(portfolioId: number, userId: number) {
+    return await this.service.readAllStocks(portfolioId, userId);
+  }
+
+  async readStock(id: number, portfolioId: number, userId: number) {
+    return await this.service.readStock(id, portfolioId, userId);
+  }
+
+  async deleteStock(id: number, portfolioId: number, userId: number) {
+    return await this.service.deleteStock(id, portfolioId, userId);
+  }
 }

@@ -21,4 +21,7 @@ export interface WalletDAO {
 
 export interface StockDAO {
   createStock(data: StockAttributes);
+  readAllStocks(portfolioId: number, userId: number);
+  readStock(id: number, portfolioId: number, userId: number);
+  deleteStock(id: number, portfolioId: number, userId: number);
 }

@@ -246,4 +246,19 @@
  *            type: integer
  *            description: The ID of the user who owns the wallet
  */
-
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Earnings:
+ *        type: object
+ *        properties:
+ *          currentPrice:
+ *            type: number
+ *          old_price:
+ *            type: number
+ *          earnings:
+ *            type: number
+ *          total_earnings:
+ *            type: number
+ */
