@@ -15,6 +15,12 @@ app.use(combinedRoutes);
 docs(app);
 const PORT = process.env.PORT || 4000;
 
+app.get("*", (req, res) => {
+  res.end(
+    "<h1>Not Found</h1><a href='https://backend-production-ac54.up.railway.app/docs'>Check the docs here</a>"
+  );
+});
+
 app.listen(PORT, () => {
   console.log("server is running on http://localhost:" + PORT);
 });
