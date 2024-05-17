@@ -212,7 +212,7 @@
  *  /stocks/create-stock/{id}:
  *      post:
  *          tags:
- *              - Portfolio
+ *              - Stocks
  *          summary: Add stock to portfolio
  *          description: Add a specified number of shares of a company’s stock to a portfolio.
  *          parameters:
