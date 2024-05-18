@@ -212,6 +212,13 @@ class StockController {
         stock_price: currentPrice,
         total_cost,
         shares,
+        fullName: results.displayName as string,
+        avgAnalysisRatings: results.averageAnalystRating as string,
+        twoHundredDayAverageChangePercent:
+          results.twoHundredDayAverageChangePercent,
+        currency: results.currency as string,
+        regularMarketPrice: Number(results.regularMarketPrice),
+        regularMarketTime: Number(results.regularMarketTime) as number,
       });
       res.send({ stock });
     } catch (err) {
