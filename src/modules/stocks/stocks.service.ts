@@ -8,6 +8,7 @@ export class StockService implements StockDAO {
   }
 
   async createStock(data: StockAttributes) {
+    console.log(data);
     return await this.service.createStock(data);
   }
 

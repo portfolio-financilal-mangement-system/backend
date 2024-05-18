@@ -10,6 +10,13 @@ class Stock extends Model {
   declare total_cost: number;
   declare stock_price: number;
   declare company_name: string;
+
+  declare fullName?: string;
+  declare avgAnalysisRatings?: string;
+  declare twoHundredDayAverageChangePercent?: number;
+  declare currency?: number;
+  declare regularMarketPrice?: number;
+  declare regularMarketTime?: number;
 }
 
 Stock.init(
@@ -34,6 +41,24 @@ Stock.init(
     },
     portfolio_id: {
       type: DataTypes.INTEGER,
+    },
+    fullName: {
+      type: DataTypes.STRING,
+    },
+    avgAnalysisRatings: {
+      type: DataTypes.STRING,
+    },
+    twoHundredDayAverageChangePercent: {
+      type: DataTypes.FLOAT,
+    },
+    currency: {
+      type: DataTypes.STRING,
+    },
+    regularMarketPrice: {
+      type: DataTypes.FLOAT,
+    },
+    regularMarketTime: {
+      type: DataTypes.DATE,
     },
   },
   {

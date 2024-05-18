@@ -12,6 +12,13 @@ class StockRepo implements StockDAO {
         stock_price: data.stock_price,
         total_cost: data.total_cost,
         company_name: data.company_name,
+        fullName: data.fullName,
+        avgAnalysisRatings: data.avgAnalysisRatings,
+        twoHundredDayAverageChangePercent:
+          data.twoHundredDayAverageChangePercent,
+        currency: data.currency,
+        regularMarketPrice: data.regularMarketPrice,
+        regularMarketTime: data.regularMarketTime,
       });
 
       return stock;

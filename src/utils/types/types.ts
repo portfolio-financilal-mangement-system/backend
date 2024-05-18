@@ -26,4 +26,10 @@ export interface StockAttributes {
   shares: number;
   total_cost: number;
   stock_price: number;
+  fullName?: string;
+  avgAnalysisRatings?: string;
+  twoHundredDayAverageChangePercent?: number;
+  currency?: string;
+  regularMarketPrice?: number;
+  regularMarketTime?: number;
 }

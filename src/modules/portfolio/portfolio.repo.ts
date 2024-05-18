@@ -1,6 +1,7 @@
 import { portfolioAttributes } from "../../utils/types/types";
 import { WalletDAO } from "../../utils/types/DAO";
 import Portfolio from "./portfolio.model";
+import Stock from "../stocks/stocks.model";
 
 class WalletRepository implements WalletDAO {
   // private portfolios: (typeof Wallet)[] = [];
@@ -24,12 +25,26 @@ class WalletRepository implements WalletDAO {
 
   async readAllWallets(userId: number) {
     try {
-      const portfolios = await Portfolio.findAll({
+      const portfolios: any[] = await Portfolio.findAll({
         where: {
           userId: userId,
         },
       });
-      return portfolios;
+
+      const portfoliosWithStockCount = await Promise.all(
+        portfolios.map(async (portfolio) => {
+          const stocks = await Stock.findAll({
+            where: { portfolio_id: portfolio.dataValues.portfolio_id },
+          });
+
+          return {
+            ...portfolio.dataValues,
+            stocks: stocks,
+          };
+        })
+      );
+
+      return portfoliosWithStockCount;
     } catch (err) {
       if (err instanceof Error) {
         throw new Error(err.message);
