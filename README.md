@@ -1,4 +1,4 @@
-## Portfolio Financial Management System
+# Portfolio Financial Management System
 
 This project provides a service where users can view market stocks for famous companies, check their prices, 
 and perform analysis. Users can sign up, log in, create a portfolio, buy stocks, and calculate earnings based on stock price changes.
